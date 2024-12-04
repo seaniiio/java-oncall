@@ -1,5 +1,7 @@
 package oncall.controller;
 
+import java.util.List;
+import oncall.dto.EmergencyTable;
 import oncall.service.OncallService;
 import oncall.view.InputView;
 import oncall.view.OutputView;
@@ -25,5 +27,8 @@ public class OncallController {
 
         String holidaySequenceInput = inputView.holidaySequenceInput();
         oncallService.setHolidaySequence(holidaySequenceInput);
+
+        List<EmergencyTable> emergencyTables = oncallService.assignTable();
+        outputView.printEmergencyTable(emergencyTables);
     }
 }

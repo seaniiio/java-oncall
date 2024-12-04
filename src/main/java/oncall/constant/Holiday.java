@@ -18,4 +18,13 @@ public enum Holiday {
         this.month = month;
         this.day = day;
     }
+
+    public static boolean isHoliday(int month, int day) {
+        for (Holiday holiday : Holiday.values()) {
+            if (holiday.month == month && holiday.day == day) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

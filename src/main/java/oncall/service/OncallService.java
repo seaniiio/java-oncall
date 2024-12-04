@@ -3,20 +3,23 @@ package oncall.service;
 import java.util.List;
 import oncall.constant.DayOfWeek;
 import oncall.constant.Month;
-import oncall.domain.Employee;
+import oncall.domain.EmergencyTableMaker;
 import oncall.domain.Employees;
 import oncall.domain.HolidaySequence;
 import oncall.domain.WeekdaySequence;
+import oncall.dto.EmergencyTable;
 
 public class OncallService {
 
+    private Month targetMonth;
+    private DayOfWeek targetDayOfWeek;
     private Employees employees;
     private WeekdaySequence weekdaySequence;
     private HolidaySequence holidaySequence;
 
     public void setStartingPoint(String startingPointInput) {
-        Month targetMonth = Parser.parseMonth(startingPointInput);
-        DayOfWeek targetDayOfWeek = Parser.parseDayOfWeek(startingPointInput);
+        this.targetMonth = Parser.parseMonth(startingPointInput);
+        this.targetDayOfWeek = Parser.parseDayOfWeek(startingPointInput);
     }
 
     public void setWeekdaySequence(String weekdaySequenceInput) {
@@ -32,5 +35,10 @@ public class OncallService {
 
         this.employees.compareEmployees(holidayEmployeesSequence);
         this.holidaySequence = new HolidaySequence(holidayEmployeesSequence.getEmployees());
+    }
+
+    public List<EmergencyTable> assignTable() {
+        EmergencyTableMaker emergencyTableMaker = new EmergencyTableMaker(targetMonth, targetDayOfWeek);
+        return emergencyTableMaker.assignEmergencyTable(weekdaySequence, holidaySequence);
     }
 }

@@ -33,4 +33,12 @@ public enum Month {
         }
         throw new IllegalArgumentException(ErrorMessage.MONTH_NOT_EXIST_ERROR.getMessage());
     }
+
+    public int getMonthNumber() {
+        return monthNumber;
+    }
+
+    public int getDaysOfMonth() {
+        return daysOfMonth;
+    }
 }
