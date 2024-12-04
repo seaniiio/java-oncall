@@ -19,16 +19,30 @@ public class OncallController {
     }
 
     public void run() {
-        String startingPointInput = inputView.startingPointInput();
-        oncallService.setStartingPoint(startingPointInput);
-
-        String weekdaySequenceInput = inputView.weekdaySequenceInput();
-        oncallService.setWeekdaySequence(weekdaySequenceInput);
-
-        String holidaySequenceInput = inputView.holidaySequenceInput();
-        oncallService.setHolidaySequence(holidaySequenceInput);
+        InputProcessor.continueUntilNormalInput(this::processStartingPointInput, outputView::printErrorMessage);
+        InputProcessor.continueUntilNormalInput(this::processSequenceInput, outputView::printErrorMessage);
 
         List<EmergencyTable> emergencyTables = oncallService.assignTable();
         outputView.printEmergencyTable(emergencyTables);
+    }
+
+    private void processSequenceInput() {
+        InputProcessor.continueUntilNormalInput(this::processWeekdaySequenceInput, outputView::printErrorMessage);
+        processHolidaySequenceInput();
+    }
+
+    private void processHolidaySequenceInput() {
+        String holidaySequenceInput = inputView.holidaySequenceInput();
+        oncallService.setHolidaySequence(holidaySequenceInput);
+    }
+
+    private void processWeekdaySequenceInput() {
+        String weekdaySequenceInput = inputView.weekdaySequenceInput();
+        oncallService.setWeekdaySequence(weekdaySequenceInput);
+    }
+
+    private void processStartingPointInput() {
+        String startingPointInput = inputView.startingPointInput();
+        oncallService.setStartingPoint(startingPointInput);
     }
 }
