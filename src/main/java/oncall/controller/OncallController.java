@@ -22,5 +22,8 @@ public class OncallController {
 
         String weekdaySequenceInput = inputView.weekdaySequenceInput();
         oncallService.setWeekdaySequence(weekdaySequenceInput);
+
+        String holidaySequenceInput = inputView.holidaySequenceInput();
+        oncallService.setHolidaySequence(holidaySequenceInput);
     }
 }

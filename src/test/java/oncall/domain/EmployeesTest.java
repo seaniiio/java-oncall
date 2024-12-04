@@ -22,4 +22,24 @@ class EmployeesTest {
                 .isThrownBy(() -> new Employees(List.of("벨", "벨")))
                 .withMessageContaining(ErrorMessage.EMPLOYEE_NAME_DUPLICATED_ERROR.getMessage());
     }
+
+    @Test
+    void 근무자_일관성_예외_테스트() {
+        Employees employees = new Employees(List.of("가", "나", "다", "라", "마"));
+        Employees anotherEmployees = new Employees(List.of("가", "나", "다", "라", "셔니"));
+
+        Assertions.assertThatIllegalArgumentException()
+                .isThrownBy(() -> employees.compareEmployees(anotherEmployees))
+                .withMessageContaining(ErrorMessage.EMPLOYEE_NOT_CONSISTENT_ERROR.getMessage());
+    }
+
+    @Test
+    void 근무자_미배정_예외_테스트() {
+        Employees employees = new Employees(List.of("가", "나", "다", "라", "마", "바"));
+        Employees anotherEmployees = new Employees(List.of("가", "나", "다", "라", "마"));
+
+        Assertions.assertThatIllegalArgumentException()
+                .isThrownBy(() -> employees.compareEmployees(anotherEmployees))
+                .withMessageContaining(ErrorMessage.EMPLOYEE_NOT_ASSIGNED_ERROR.getMessage());
+    }
 }
