@@ -1,5 +1,7 @@
 package oncall.service;
 
+import java.util.Arrays;
+import java.util.List;
 import oncall.constant.DayOfWeek;
 import oncall.constant.ErrorMessage;
 import oncall.constant.Month;
@@ -39,5 +41,13 @@ public class Parser {
             throw new IllegalArgumentException(ErrorMessage.STARTING_POINT_FORMAT_ERROR.getMessage());
         }
         return startingPoints;
+    }
+
+    public static List<String> parseEmployees(String sequenceInput) {
+        try {
+            return Arrays.stream(sequenceInput.split(",")).toList();
+        } catch (IllegalStateException e) {
+            throw new IllegalArgumentException(ErrorMessage.EMPLOYEES_FORMAT_ERROR.getMessage());
+        }
     }
 }

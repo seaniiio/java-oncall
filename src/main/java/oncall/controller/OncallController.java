@@ -19,5 +19,8 @@ public class OncallController {
     public void run() {
         String startingPointInput = inputView.startingPointInput();
         oncallService.setStartingPoint(startingPointInput);
+
+        String weekdaySequenceInput = inputView.weekdaySequenceInput();
+        oncallService.setWeekdaySequence(weekdaySequenceInput);
     }
 }
