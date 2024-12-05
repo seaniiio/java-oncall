@@ -5,7 +5,7 @@ import java.util.List;
 import oncall.constant.DayOfWeek;
 import oncall.constant.Holiday;
 import oncall.constant.Month;
-import oncall.dto.EmergencyTable;
+import oncall.dto.EmergencyTableDto;
 
 public class EmergencyTableMaker {
 
@@ -17,13 +17,13 @@ public class EmergencyTableMaker {
         this.targetDayOfWeek = targetDayOfWeek;
     }
 
-    public List<EmergencyTable> assignEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence) {
-        List<EmergencyTable> emergencyTables = new ArrayList<>();
+    public List<EmergencyTableDto> assignEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence) {
+        List<EmergencyTableDto> emergencyTables = new ArrayList<>();
         setEmergencyTable(weekdaySequence, holidaySequence, emergencyTables);
         return emergencyTables;
     }
 
-    private void setEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence, List<EmergencyTable> emergencyTables) {
+    private void setEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence, List<EmergencyTableDto> emergencyTables) {
         int weekdaySequenceOrder = 0;
         int holidaySequenceOrder = 0;
 
@@ -42,10 +42,10 @@ public class EmergencyTableMaker {
     }
 
     private void addSequenceWithReplace(Sequence sequence, int sequenceOrder,
-                                 List<EmergencyTable> emergencyTables, int day, DayOfWeek dayOfWeek) {
+                                        List<EmergencyTableDto> emergencyTables, int day, DayOfWeek dayOfWeek) {
         if (emergencyTables.isEmpty()) {
             Employee nowEmployee = sequence.getEmployeeOfOrder(sequenceOrder, false);
-            emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
+            emergencyTables.add(new EmergencyTableDto(nowEmployee, targetMonth, day, dayOfWeek));
             return;
         }
 
@@ -56,6 +56,6 @@ public class EmergencyTableMaker {
             nowEmployee = sequence.getEmployeeOfOrder(sequenceOrder, true);
         }
 
-        emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
+        emergencyTables.add(new EmergencyTableDto(nowEmployee, targetMonth, day, dayOfWeek));
     }
 }

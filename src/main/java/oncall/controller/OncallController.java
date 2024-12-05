@@ -1,7 +1,7 @@
 package oncall.controller;
 
 import java.util.List;
-import oncall.dto.EmergencyTable;
+import oncall.dto.EmergencyTableDto;
 import oncall.service.OncallService;
 import oncall.view.InputView;
 import oncall.view.OutputView;
@@ -22,7 +22,7 @@ public class OncallController {
         InputProcessor.continueUntilNormalInput(this::processStartingPointInput, outputView::printErrorMessage);
         InputProcessor.continueUntilNormalInput(this::processSequenceInput, outputView::printErrorMessage);
 
-        List<EmergencyTable> emergencyTables = oncallService.assignTable();
+        List<EmergencyTableDto> emergencyTables = oncallService.assignTable();
         outputView.printEmergencyTable(emergencyTables);
     }
 

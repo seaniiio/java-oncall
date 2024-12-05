@@ -5,14 +5,14 @@ import oncall.constant.Holiday;
 import oncall.constant.Month;
 import oncall.domain.Employee;
 
-public class EmergencyTable {
+public class EmergencyTableDto {
 
     private final Employee employee;
     private final Month month;
     private final int day;
     private final DayOfWeek dayOfWeek;
 
-    public EmergencyTable(Employee employee, Month month, int day, DayOfWeek dayOfWeek) {
+    public EmergencyTableDto(Employee employee, Month month, int day, DayOfWeek dayOfWeek) {
         this.employee = employee;
         this.month = month;
         this.day = day;

@@ -1,11 +1,11 @@
 package oncall.view;
 
 import java.util.List;
-import oncall.dto.EmergencyTable;
+import oncall.dto.EmergencyTableDto;
 
 public class OutputView {
-    public void printEmergencyTable(List<EmergencyTable> emergencyTables) {
-        for (EmergencyTable emergencyTable : emergencyTables) {
+    public void printEmergencyTable(List<EmergencyTableDto> emergencyTables) {
+        for (EmergencyTableDto emergencyTable : emergencyTables) {
             System.out.println(emergencyTable);
         }
     }

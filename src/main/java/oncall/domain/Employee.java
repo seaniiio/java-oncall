@@ -5,6 +5,8 @@ import oncall.constant.ErrorMessage;
 
 public class Employee {
 
+    private static final int MAX_EMPLOYEE_NUMBERS = 5;
+
     private final String name;
 
     public Employee(String name) {
@@ -13,7 +15,7 @@ public class Employee {
     }
 
     private void validate(String name) {
-        if (name.length() > 5 || name.isBlank()) {
+        if (name.length() > MAX_EMPLOYEE_NUMBERS || name.isBlank()) {
             throw new IllegalArgumentException(ErrorMessage.EMPLOYEE_NAME_LENGTH_ERROR.getMessage());
         }
     }

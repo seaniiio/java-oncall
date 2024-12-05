@@ -6,7 +6,7 @@ import oncall.constant.Month;
 import oncall.domain.EmergencyTableMaker;
 import oncall.domain.Employees;
 import oncall.domain.Sequence;
-import oncall.dto.EmergencyTable;
+import oncall.dto.EmergencyTableDto;
 
 public class OncallService {
 
@@ -25,7 +25,7 @@ public class OncallService {
         List<String> weekdayEmployees = Parser.parseEmployees(weekdaySequenceInput);
 
         this.employees = new Employees(weekdayEmployees);
-        this.weekdaySequence = new Sequence(this.employees.getEmployees());
+        this.weekdaySequence = new Sequence(this.employees);
     }
 
     public void setHolidaySequence(String holidaySequenceInput) {
@@ -33,10 +33,10 @@ public class OncallService {
         Employees holidayEmployeesSequence = new Employees(holidayEmployees);
 
         this.employees.compareEmployees(holidayEmployeesSequence);
-        this.holidaySequence = new Sequence(holidayEmployeesSequence.getEmployees());
+        this.holidaySequence = new Sequence(holidayEmployeesSequence);
     }
 
-    public List<EmergencyTable> assignTable() {
+    public List<EmergencyTableDto> assignTable() {
         EmergencyTableMaker emergencyTableMaker = new EmergencyTableMaker(targetMonth, targetDayOfWeek);
         return emergencyTableMaker.assignEmergencyTable(weekdaySequence, holidaySequence);
     }

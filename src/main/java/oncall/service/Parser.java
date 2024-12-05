@@ -8,6 +8,7 @@ import oncall.constant.Month;
 
 public class Parser {
 
+    private static final String DELIMITER = ",";
     private static final int MONTH_INDEX = 0;
     private static final int DAY_OF_WEEK_INDEX = 1;
 
@@ -36,7 +37,7 @@ public class Parser {
     private static String[] splitStartingPoint(String startingPointInput) {
         String[] startingPoints;
         try {
-            startingPoints = startingPointInput.split(",");
+            startingPoints = startingPointInput.split(DELIMITER);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.STARTING_POINT_FORMAT_ERROR.getMessage());
         }
@@ -45,7 +46,7 @@ public class Parser {
 
     public static List<String> parseEmployees(String sequenceInput) {
         try {
-            return Arrays.stream(sequenceInput.split(",")).toList();
+            return Arrays.stream(sequenceInput.split(DELIMITER)).toList();
         } catch (IllegalStateException e) {
             throw new IllegalArgumentException(ErrorMessage.EMPLOYEES_FORMAT_ERROR.getMessage());
         }
