@@ -17,8 +17,13 @@ public class EmergencyTableMaker {
         this.targetDayOfWeek = targetDayOfWeek;
     }
 
-    public List<EmergencyTable> assignEmergencyTable(WeekdaySequence weekdaySequence, HolidaySequence holidaySequence) {
+    public List<EmergencyTable> assignEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence) {
         List<EmergencyTable> emergencyTables = new ArrayList<>();
+        setEmergencyTable(weekdaySequence, holidaySequence, emergencyTables);
+        return emergencyTables;
+    }
+
+    private void setEmergencyTable(Sequence weekdaySequence, Sequence holidaySequence, List<EmergencyTable> emergencyTables) {
         int weekdaySequenceOrder = 0;
         int holidaySequenceOrder = 0;
 
@@ -26,53 +31,31 @@ public class EmergencyTableMaker {
             DayOfWeek dayOfWeek = DayOfWeek.calculateDayOfWeek(targetDayOfWeek, day);
 
             if (!dayOfWeek.isHoliday() && !Holiday.isHoliday(targetMonth.getMonthNumber(), day)) {
-                addWeekendSequenceWithReplace(weekdaySequence, weekdaySequenceOrder, emergencyTables, day, dayOfWeek);
+                addSequenceWithReplace(weekdaySequence, weekdaySequenceOrder, emergencyTables, day, dayOfWeek);
                 weekdaySequenceOrder += 1;
             }
-
             if (dayOfWeek.isHoliday() || Holiday.isHoliday(targetMonth.getMonthNumber(), day)) {
-                addHolidaySequenceWithReplace(holidaySequence, holidaySequenceOrder, emergencyTables, day, dayOfWeek);
+                addSequenceWithReplace(holidaySequence, holidaySequenceOrder, emergencyTables, day, dayOfWeek);
                 holidaySequenceOrder += 1;
             }
         }
-
-        return emergencyTables;
     }
 
-    private void addWeekendSequenceWithReplace(WeekdaySequence weekdaySequence, int weekdaySequenceOrder,
+    private void addSequenceWithReplace(Sequence sequence, int sequenceOrder,
                                  List<EmergencyTable> emergencyTables, int day, DayOfWeek dayOfWeek) {
         if (emergencyTables.isEmpty()) {
-            Employee nowEmployee = weekdaySequence.getEmployeeOfOrder(weekdaySequenceOrder, false);
+            Employee nowEmployee = sequence.getEmployeeOfOrder(sequenceOrder, false);
             emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
             return;
         }
 
         Employee recentEmployee = emergencyTables.get(emergencyTables.size() - 1).getEmployee();
-        Employee nowEmployee = weekdaySequence.getEmployeeOfOrder(weekdaySequenceOrder, false);
+        Employee nowEmployee = sequence.getEmployeeOfOrder(sequenceOrder, false);
 
         if (recentEmployee.equals(nowEmployee)) {
-            nowEmployee = weekdaySequence.getEmployeeOfOrder(weekdaySequenceOrder, true);
+            nowEmployee = sequence.getEmployeeOfOrder(sequenceOrder, true);
         }
 
         emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
     }
-
-    private void addHolidaySequenceWithReplace(HolidaySequence holidaySequence, int holidaySequenceOrder,
-                                               List<EmergencyTable> emergencyTables, int day, DayOfWeek dayOfWeek) {
-        if (emergencyTables.isEmpty()) {
-            Employee nowEmployee = holidaySequence.getEmployeeOfOrder(holidaySequenceOrder, false);
-            emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
-            return;
-        }
-
-        Employee recentEmployee = emergencyTables.get(emergencyTables.size() - 1).getEmployee();
-        Employee nowEmployee = holidaySequence.getEmployeeOfOrder(holidaySequenceOrder, false);
-
-        if (recentEmployee.equals(nowEmployee)) {
-            nowEmployee = holidaySequence.getEmployeeOfOrder(holidaySequenceOrder, true);
-        }
-
-        emergencyTables.add(new EmergencyTable(nowEmployee, targetMonth, day, dayOfWeek));
-    }
-
 }
