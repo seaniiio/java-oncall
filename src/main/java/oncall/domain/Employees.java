@@ -8,6 +8,9 @@ import oncall.constant.ErrorMessage;
 
 public class Employees {
 
+    private static final int EMPLOYEE_NAME_MAX_LENGTH = 35;
+    private static final int EMPLOYEE_NAME_MIN_LENGTH = 5;
+
     private List<Employee> employees;
 
     public Employees(List<String> employeeNames) {
@@ -42,7 +45,7 @@ public class Employees {
     }
 
     private void validateNumbers(List<String> employeeNames) {
-        if (employeeNames.size() < 5 || employeeNames.size() > 35) {
+        if (employeeNames.size() < EMPLOYEE_NAME_MIN_LENGTH || employeeNames.size() > EMPLOYEE_NAME_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessage.EMPLOYEES_NUMBER_ERROR.getMessage());
         }
     }
