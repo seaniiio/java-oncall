@@ -10,6 +10,11 @@ import org.junit.jupiter.api.Test;
 class EmployeesTest {
 
     @Test
+    void 근무자_목록_생성_테스트() {
+        assertDoesNotThrow(() -> new Employees(List.of("벨", "션", "월", "화", "수")));
+    }
+
+    @Test
     void 근무자_수_예외_테스트() {
         Assertions.assertThatIllegalArgumentException()
                 .isThrownBy(() -> new Employees(List.of("벨", "션")))
