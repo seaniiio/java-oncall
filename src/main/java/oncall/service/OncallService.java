@@ -55,4 +55,8 @@ public class OncallService {
             }
         }
     }
+
+    public List<> assign() {
+
+    }
 }

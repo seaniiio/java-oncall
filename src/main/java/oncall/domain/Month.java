@@ -4,7 +4,6 @@ import oncall.constant.ErrorMessage;
 
 public enum Month {
 
-//    anuary, February, April, May, June, July, August, September, October, November, December
     JANUARY(1, 31),
     FEBRUARY(2, 28),
     MARCH(3, 31),
@@ -34,12 +33,6 @@ public enum Month {
             }
         }
         throw new IllegalArgumentException(ErrorMessage.START_DATE_ERROR.getMessage());
-    }
-
-    public void validateDay(int day) {
-        if (day < 1 || day > this.day) {
-            throw new IllegalArgumentException(ErrorMessage.START_DATE_ERROR.getMessage());
-        }
     }
 
     public int getDay() {
