@@ -1,22 +1,37 @@
 package oncall.domain;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import oncall.constant.ErrorMessage;
 
-public class WeekdaySequence {
+public class Sequence {
 
-    private final List<Employee> sequence;
+    private final Deque<Employee> sequence;
 
-    public WeekdaySequence(List<Employee> sequence) {
+    public Sequence(List<Employee> sequence) {
         validate(sequence);
-        this.sequence = sequence;
+        this.sequence = new LinkedList<>(sequence);
     }
 
     public List<Employee> getSequence() {
         return new ArrayList<>(sequence);
+    }
+
+    public Employee getNextEmployee(Employee beforeEmployee) {
+        Employee nextEmployee = sequence.removeFirst();
+        if (beforeEmployee == null || !beforeEmployee.equals(nextEmployee)) {
+            sequence.add(nextEmployee);
+            return nextEmployee;
+        }
+        // 다음 근무자를 땡겨야 하는 경우
+        Employee alternativeEmployee = sequence.removeFirst();
+        sequence.addLast(alternativeEmployee);
+        sequence.addFirst(nextEmployee);
+        return alternativeEmployee;
     }
 
     private void validate(List<Employee> sequence) {

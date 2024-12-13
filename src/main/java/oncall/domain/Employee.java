@@ -12,6 +12,10 @@ public class Employee {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     private void validate(String name) {
         if (name.length() < 1 || name.length() > 5) {
             throw new IllegalArgumentException(ErrorMessage.EMPLOYEE_NAME_ERROR.getMessage());

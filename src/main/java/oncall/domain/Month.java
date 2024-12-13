@@ -38,4 +38,8 @@ public enum Month {
     public int getDay() {
         return day;
     }
+
+    public int getMonth() {
+        return month;
+    }
 }

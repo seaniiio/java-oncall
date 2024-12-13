@@ -14,7 +14,7 @@ public class OncallController {
     public void run() {
         InputProcessor.continueUntilNormalInput(this::processStartDate, outputView::printErrorMessage);
         InputProcessor.continueUntilNormalInput(this::processSequence, outputView::printErrorMessage);
-        oncallService.assign();
+        outputView.printResult(oncallService.assign());
     }
 
     private void processSequence() {

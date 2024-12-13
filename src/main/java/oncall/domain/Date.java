@@ -9,4 +9,16 @@ public class Date {
         this.month = Month.findByMonth(month);
         this.dayOfWeek = DayOfWeek.fromName(dayOfWeek);
     }
+
+    public int getDaysInMonth() {
+        return month.getDay();
+    }
+
+    public int getMonth() {
+        return month.getMonth();
+    }
+
+    public DayOfWeek getDayOfWeekAfterDays(int day) {
+        return DayOfWeek.findAfterDays(dayOfWeek, day);
+    }
 }
