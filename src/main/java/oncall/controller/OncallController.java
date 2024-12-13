@@ -13,5 +13,13 @@ public class OncallController {
     public void run() {
         String monthAndDayOfWeekInput = inputView.monthAndDayOfWeekInput();
         oncallService.setMonthAndDayOfWeek(monthAndDayOfWeekInput);
+
+        String weekdaySequenceInput = inputView.weekdaySequenceInput();
+        oncallService.setWeekdaySequence(weekdaySequenceInput);
+
+        String holidaySequenceInput = inputView.holidaySequenceInput();
+        oncallService.setHolidaySequence(holidaySequenceInput);
+
+        oncallService.validateSequence();
     }
 }
