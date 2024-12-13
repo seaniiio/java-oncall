@@ -1,5 +1,6 @@
 package oncall.controller;
 
+import oncall.service.OncallService;
 import oncall.view.InputView;
 import oncall.view.OutputView;
 
@@ -7,8 +8,10 @@ public class OncallController {
 
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final OncallService oncallService = new OncallService();
 
-    private void run() {
-
+    public void run() {
+        String monthAndDayOfWeekInput = inputView.monthAndDayOfWeekInput();
+        oncallService.setMonthAndDayOfWeek(monthAndDayOfWeekInput);
     }
 }
